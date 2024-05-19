@@ -1,0 +1,18 @@
+ROM kalilinux/kali-rolling:latest
+
+# Установка необходимых пакетов
+RUN apt-get update && apt-get install -y python3 python3-pip
+
+# Копируем requirements.txt в образ и устанавливаем зависимости
+COPY requirements.txt /app/requirements.txt
+WORKDIR /app
+RUN pip3 install --no-cache-dir -r requirements.txt
+
+# Копируем все файлы проекта в образ
+COPY . /app
+
+# Определяем рабочую директорию
+WORKDIR /app
+
+# Запускаем Django приложение
+CMD python3 manage.py runserver 0.0.0.0:8000
