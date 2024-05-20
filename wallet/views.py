@@ -43,7 +43,6 @@ class ViewWalletView(APIView):
 
             transaction_serializer = TransactionSerializer(data=transaction_data)
             if transaction_serializer.is_valid():
-                transaction_serializer.save()
                 return Response({'status': 'успешно', 'balance': balance}, status=status.HTTP_OK)
             else:
                 return Response({'status': 'неуспешно', 'message': 'Параметры некорректны'}, status=status.HTTP_BAD_REQUEST)
